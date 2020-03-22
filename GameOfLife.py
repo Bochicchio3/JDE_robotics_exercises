@@ -18,6 +18,64 @@ def init_board(size, p):
                 game_board[i,k]=1
     return game_board
 
+
+def init_board_with_given_states(size):
+    game_board=np.zeros([size+2,size+2])
+    
+    # Still life 1:
+    
+    game_board[3,3]=1
+    game_board[3,4]=1
+    game_board[4,3]=1
+    game_board[4,4]=1
+
+    # # Still life 2:
+    
+    game_board[8,8]=1
+    game_board[8,9]=1
+    game_board[9,8]=1
+    game_board[9,10]=1
+    game_board[10,9]=1
+
+
+    # # Still life 3: Boat
+    
+    game_board[12,12]=1
+    game_board[13,11]=1
+    game_board[13,13]=1
+    game_board[14,12]=1
+
+    #  Oscillators 1
+    
+    game_board[17,17]=1
+    game_board[17,18]=1
+    game_board[17,19]=1
+    
+    
+    # Oscillators 2:
+    
+    game_board[8,16]=1
+    game_board[8,17]=1
+    game_board[9,16]=1
+    game_board[9,17]=1
+
+    game_board[10,18]=1
+    game_board[10,19]=1
+    game_board[11,18]=1
+    game_board[11,19]=1
+    
+    #Glider
+     
+    game_board[18,3]=1
+    game_board[17,3]=1
+    game_board[16,3]=1
+    game_board[16,2]=1
+    game_board[17,1]=1
+
+    
+
+    return game_board
+
 def get_mask(board,size):
     masked_board=np.zeros([size+2,size+2])
     counter=0
@@ -32,43 +90,69 @@ def get_mask(board,size):
                             counter+=1
                 masked_board[i,j]=counter
                 counter=0
-    return masked_board          
+    return masked_board    
+      
 
 def update_state(board, mask,size):
     for i in range(1,size+1):
         for j in range (1,size+1):
+            
+            # Handles live cells
             if board[i,j]==1:
-                if (mask[i,j]==1 or mask[i,j]==2):
-                    # KEEP ALIVE IF 1 OR 2
+                
+
+                if (mask[i,j]==2 or mask[i,j]==3):
+                # Keep alive if 2 or 3 neighbours
                     continue
                     # KILL IF >2 or <1
                 else:
                     board[i,j]=0
-            elif mask[i,j]>2 and board[i,j]==0:
-                    # RESURRECT IF 3 OR MORE NB
+
+            # Handles dead cells 
+            elif mask[i,j]==3:
                 board[i,j]=1
+                
     return board
 
 def plot(board,size):
+    
     cmap = colors.ListedColormap(['Black','White'])
     plt.pcolor(board[1:size+1,1:size+1],cmap=cmap)
-    # plt.draw()
+
 
 def main():
+    
     size=30
-    p=0.9
-    board2=init_board(size,p)
+    
+    # p=0.9
+    # board2=init_board(size,p)
+    
+    board2=init_board_with_given_states(size)
+    # input()
     while (1):
+        
+        # time.sleep(1)
         t = time.time()
+        
         mask=get_mask(board2,size)
+        
         board2=update_state(board2,mask,size)
+
+
         plot(board2,size)
         plt.pause(0.001)
         print(time.time()-t)
         plt.clf()
-    # plt.show()
 
+        
+
+
+
+
+# Config for matplotlib
 plt.rcParams['figure.figsize'] = [15, 8]
 
+# Main program
+# if __name__=="__main__":
 main()
 
