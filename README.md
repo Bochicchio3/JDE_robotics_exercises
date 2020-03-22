@@ -135,7 +135,7 @@ W=Kp*error-Kd*d_error
 
 ```
 #### Ice library mismatch
-I have noticed that there may be some incongruencies between the used version of the ice library. The follow line exercise requires 3.7.1 version while the Force field exercise apparently requires 3.7.3.
+I have noticed that there may be some incongruencies between the used version of the ice library. The follow line exercise requires 3.7.1 version while the Force field exercise apparently requires 3.6.3.
 
 
 ### Other exercises
@@ -145,6 +145,6 @@ I managed to start almost all the exercises and I will work on them in the next 
 
 - Force field
 
-![](2020-03-22-17-39-38.png)
+![](2020-03-22-21-18-32.png)
 
--
+- 
