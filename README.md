@@ -1,2 +1,126 @@
 # JDE_robotics_exercises
-JDE_Robotics_exercises
+
+- [JDE_robotics_exercises](#jderoboticsexercises)
+  - [GSOC Requirements](#gsoc-requirements)
+  - [Python implementation of Game of Life](#python-implementation-of-game-of-life)
+      - [Requirements](#requirements)
+      - [To execute](#to-execute)
+      - [Demonstration](#demonstration)
+  - [C++ exercise](#c-exercise)
+  - [Academy Challenge](#academy-challenge)
+    - [Follow Line exercise](#follow-line-exercise)
+      - [Image Processing](#image-processing)
+      - [Visual servoing](#visual-servoing)
+    - [Other exercises](#other-exercises)
+
+
+## GSOC Requirements
+
+- [x] Python challenge
+
+- [x] Academy challenge
+
+- [ ] C++ challenge
+
+
+
+
+##  Python implementation of Game of Life
+
+
+#### Requirements
+
+- Python2.7
+- Numpy
+- Matplotlib
+
+It should have been implemented only using the standard library and numpy, I have added matplotlib for a nicer visualization but the board can be easily printed as a numpy matrix.
+
+
+#### To execute
+```
+Python GameofLife.py
+```
+
+#### Demonstration
+
+![](game_of_life.gif)
+
+
+##  C++ exercise
+
+Coming soon
+
+
+## Academy Challenge
+
+### Follow Line exercise
+
+I managed to install and start all the exercises and I have started to solve them with the follow_line exercise.
+
+
+![](follow_line.gif)
+
+My solution is very basic. It consists in:
+
+- image processing to extrapolate the centroid of the red line
+- Visual servoing PID contro
+  
+#### Image Processing
+
+I perform the operation in hsv space as usually it is more robust then rgb space for color extraction. 
+
+```
+hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+
+lower_color_bounds = np.array([100, 100, 0])
+upper_color_bounds = np.array([180,255,255])
+
+mask = cv2.inRange(hsv,lower_color_bounds,upper_color_bounds )
+mask_rgb = cv2.cvtColor(mask,cv2.COLOR_GRAY2BGR)
+
+kernel = np.ones((2,2),np.uint8)
+mask_rgb=cv2.erode(mask_rgb,kernel, iterations=2)
+mask_rgb=cv2.dilate(mask_rgb, kernel, iterations=3)
+
+# calculate moments of binary image
+M = cv2.moments(mask)
+
+# calculate x,y coordinate of center
+if M['m00']!=0:
+    cX = float(M["m10"] / M["m00"])
+    cY = float(M["m01"] / M["m00"])
+    # Put a marker 
+    mask_rgb=cv2.circle(mask_rgb, (int(cX), int(cY)), 20, (0, 255, 0), 20)
+``` 
+
+#### Visual servoing
+            
+```
+# PD component
+
+Kp=1
+Kd=0.5
+# error 
+
+error= (320.0-cX)/320
+
+#error derivative
+
+self.error_history.append(error)
+if len(self.error_history)==3:
+    self.error_history=self.error_history[1:3]
+
+d_error=(self.error_history[1]-self.error_history[0])/14
+
+#Compute Command
+
+W=Kp*error-Kd*d_error
+
+```
+
+
+### Other exercises
+
+I managed to start almost all the exercises and I will work on them in the next few days.
+
