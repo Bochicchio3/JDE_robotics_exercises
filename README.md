@@ -15,6 +15,7 @@
       - [Visual servoing](#visual-servoing)
       - [Ice library mismatch](#ice-library-mismatch)
     - [Other exercises](#other-exercises)
+  - [Industrial Challenge](#industrial-challenge)
 
 
 ## GSOC Requirements
@@ -47,25 +48,31 @@ Python GameofLife.py
 
 #### Demonstration
 
-![](game_of_life.gif)
+![](./content/game_of_life.gif)
 
 
 #### Test
 
  I expect to see these forms of life.
 
-![](life.gif)
+![](./content/life.gif)
 
 
 #### Known Life
 
 You can some of the still and oscillating patterns as well as the glider.
 
-![](known_life.gif)
+![](./content/known_life.gif)
 
 ##  C++ exercise
 
-Coming soon
+I am currently working on it. 
+
+-[x] read input from random patterns in txt files
+
+-[ ] writing a common implementation of Djkstra algorithm based on Graphs and Edges classes.
+
+-[ ] writing the translation from text input to input graph
 
 
 ## Academy Challenge
@@ -75,7 +82,7 @@ Coming soon
 I managed to install and start all the exercises and I have started to solve them with the follow_line exercise.
 
 
-![](follow_line.gif)
+![](./content/follow_line.gif)
 
 My solution is very basic. It consists in:
 
@@ -145,6 +152,9 @@ I managed to start almost all the exercises and I will work on them in the next 
 
 - Force field
 
-![](2020-03-22-21-18-32.png)
+![](./content/2020-03-22-21-18-32.png)
 
-- 
+
+## Industrial Challenge
+
+For now I just installed all the required packages but I still have to fix all the errors. I have already managed to use MoveIT with another robotic manipulator.
